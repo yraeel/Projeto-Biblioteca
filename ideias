@@ -1,0 +1,48 @@
+AUTOR - {
+    id_autor, 
+    nome_autor, 
+}
+
+EDITORA - {
+    id_editora, 
+    nome_editora, 
+    autores(pode ter varios autores)
+    livros,
+}
+
+-----------------------------------------------------
+
+LIVROS - {
+    id_livro,
+    nome,
+    genero,
+    paginas,
+    numeroEdição,
+    idioma,
+    anoLançamento,
+    pais,
+    disponibilidade,
+
+    fk_autor(chave estrangeira),
+    fk_editora(chave estrangeira),
+}
+
+-------------------------------------------------------------
+
+USUARIO - {
+    id_user,
+    nome,
+    dataNascimento
+    email,
+}
+
+
+EMPRESTIMO - {
+    id,
+    dataEmprestimo,
+    dataDevolução,
+    (quando livro estivar emprestado a alguem, mudar estado de disponibilidade)
+    
+    fk_id_user,
+    fk_id_livro,
+}
