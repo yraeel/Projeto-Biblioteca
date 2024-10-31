@@ -46,3 +46,5 @@ EMPRESTIMO - {
     fk_id_user,
     fk_id_livro,
 }
+
+https://lucid.app/lucidchart/48a73ce0-a182-42ed-a18e-888acb948707/edit?invitationId=inv_faa8f811-1512-4125-884c-72b79d8a4f80&page=0_0#
