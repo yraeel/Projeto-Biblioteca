@@ -16,18 +16,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from author.views import AuthorsViewSet
-from publisher.views import PublishersViewSet
-from book.views import BooksViewSet
+from author.views import AuthorAPIView
+from publisher.views import PublishersAPIView, PublisherAPIView
+from book.views import BooksAPIView, BookAPIView
 from rest_framework import routers
 
 router = routers.DefaultRouter()
 
-router.register(r'Authors', AuthorsViewSet)
-router.register(r'Publishers', PublishersViewSet)
-router.register(r'Books', BooksViewSet)
+
+
 
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
+    path('authors/', AuthorAPIView.as_view()),
+    path('authors/<uuid:id_author>/', AuthorAPIView.as_view()),
+    path('publishers/', PublishersAPIView.as_view(), name='publishers'),
+    path('publishers/<uuid:id_publisher>/', PublisherAPIView.as_view(), name='publisher'),
+    path('books/', BooksAPIView.as_view(), name='books'),
+    path('books/<uuid:id_book>/', BookAPIView.as_view(), name='book'),
+
 ]
