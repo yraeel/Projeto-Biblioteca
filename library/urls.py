@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from author.views import AuthorAPIView
-from publisher.views import PublishersAPIView, PublisherAPIView
+from publisher.views import PublisherAPIView
 from book.views import BooksAPIView, BookAPIView
 from rest_framework import routers
 
@@ -31,8 +31,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('authors/', AuthorAPIView.as_view()),
     path('authors/<uuid:id_author>/', AuthorAPIView.as_view()),
-    path('publishers/', PublishersAPIView.as_view(), name='publishers'),
-    path('publishers/<uuid:id_publisher>/', PublisherAPIView.as_view(), name='publisher'),
+    path('publishers/', PublisherAPIView.as_view()),
+    path('publishers/<uuid:id_publisher>/', PublisherAPIView.as_view()),
     path('books/', BooksAPIView.as_view(), name='books'),
     path('books/<uuid:id_book>/', BookAPIView.as_view(), name='book'),
 

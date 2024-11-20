@@ -5,9 +5,9 @@ from rest_framework import serializers
 
 class PublisherSerializer(serializers.ModelSerializer):
 
-    author = serializers.PrimaryKeyRelatedField(queryset=Author.objects.all(), many=True)
+    authors = serializers.PrimaryKeyRelatedField(queryset=Author.objects.all(), many=True)
 
     class Meta:
         model = Publisher
-        fields = ['id_publisher', 'publisher_name', 'created', 'updated', 'author']
+        fields = ['id_publisher', 'publisher_name', 'created', 'updated', 'authors']
 
