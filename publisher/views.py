@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from publisher.models import Publisher
@@ -14,13 +14,11 @@ class PublisherAPIView(APIView):
     def get(self, request, id_publisher = None):
 
         if id_publisher: # Se um ID for fornecido, busque pelo ID
-            try:
-                publisher = Publisher.objects.get(id_publisher=id_publisher)
-                serializer = PublisherSerializer(publisher)
-                return Response({"Publisher": serializer.data}, status=status.HTTP_202_ACCEPTED)
             
-            except publisher.DoesNotExist:
-                return Response({"error": "publisher not found"}, status=status.HTTP_404_NOT_FOUND)
+            publisher = get_object_or_404(Publisher.objects.all(), id_publisher=id_publisher)
+            serializer = PublisherSerializer(publisher)
+            return Response({"Publisher": serializer.data}, status=status.HTTP_202_ACCEPTED)
+    
         
         else:# Caso contrário, retorne todos os autores
             publishers = Publisher.objects.all()
@@ -36,3 +34,24 @@ class PublisherAPIView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+    
+
+    def put(self, request, id_publisher):
+          
+        publisher = get_object_or_404(Publisher.objects.all(), id_publisher=id_publisher)
+        serializer = PublisherSerializer(publisher, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+            
+
+    def delete(self, request, id_publisher):
+        
+        publisher = get_object_or_404(Publisher.objects.all(), id_publisher=id_publisher)
+        publisher.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+        
