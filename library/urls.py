@@ -16,9 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from author.views import AuthorAPIView
+from author.views import AuthorAPIView, AuthorDetails
 from publisher.views import PublisherAPIView
-from book.views import BooksAPIView, BookAPIView
+from book.views import BookAPIView
 from rest_framework import routers
 
 router = routers.DefaultRouter()
@@ -31,9 +31,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('authors/', AuthorAPIView.as_view()),
     path('authors/<uuid:id_author>/', AuthorAPIView.as_view()),
+    path('authors/<uuid:id_author>/books/', AuthorDetails.as_view()),
     path('publishers/', PublisherAPIView.as_view()),
     path('publishers/<uuid:id_publisher>/', PublisherAPIView.as_view()),
-    path('books/', BooksAPIView.as_view(), name='books'),
-    path('books/<uuid:id_book>/', BookAPIView.as_view(), name='book'),
+    path('books/', BookAPIView.as_view()),
+    path('books/<uuid:id_book>/', BookAPIView.as_view()),
 
 ]

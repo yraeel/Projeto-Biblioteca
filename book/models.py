@@ -25,6 +25,6 @@ class Book(models.Model):
 
     
     def __str__(self) -> str:
-        return self.book_name, self.fk_author, self.fk_publisher
+        return f"{self.book_name} - {self.fk_author} - {self.fk_publisher}"
 
 

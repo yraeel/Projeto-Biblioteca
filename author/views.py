@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from author.models import Author
+from book.models import Book
+from book.serializers import BookSerializer
 from author.serializers import AuthorSerializer
 from rest_framework.views import APIView
 
@@ -51,6 +53,12 @@ class AuthorAPIView(APIView):
     
 
     def delete(self, request, id_author):
-        author = get_object_or_404(Author.objects.get(), id_author=id_author)
+        author = get_object_or_404(Author.objects.all(), id_author=id_author)
         author.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+
+
+
+
