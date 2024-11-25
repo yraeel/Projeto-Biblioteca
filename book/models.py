@@ -14,8 +14,8 @@ class Book(models.Model):
     release = models.IntegerField()
     country = models.CharField(max_length=50)
 
-    fk_author = models.ForeignKey(Author, on_delete=models.PROTECT, related_name='books')
-    fk_publisher = models.ForeignKey(Publisher, on_delete=models.PROTECT, related_name='books')
+    fk_author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name='books')
+    fk_publisher = models.ForeignKey(Publisher, on_delete=models.CASCADE, related_name='books')
 
 
 
