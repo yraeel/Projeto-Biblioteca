@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from publisher.models import Publisher
-from publisher.serializers import PublisherSerializer
+from publisher.serializers import PublisherSerializer, PublisherDetailSerializer
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 
@@ -12,7 +12,19 @@ from rest_framework.viewsets import ModelViewSet
 
 class PublisherViewSet(ModelViewSet):
     queryset = Publisher.objects.all()
-    serializer_class = PublisherSerializer
+    # serializer_class = PublisherSerializer
+
+    def get_serializer_class(self):
+        
+        if self.action == "list":
+            return PublisherDetailSerializer
+        if self.action == "retrieve":
+            return PublisherDetailSerializer
+        return PublisherSerializer
+
+
+
+
 
 
 

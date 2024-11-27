@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from book.models import Book
-from book.serializers import BookSerializer
+from book.serializers import BookSerializer, BookDetailSerializer
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 # Create your views here.
@@ -11,8 +11,17 @@ from rest_framework.viewsets import ModelViewSet
 
 class BookViewSet(ModelViewSet):
     queryset = Book.objects.all()
-    serializer_class = BookSerializer
+    # serializer_class = BookSerializer
 
+    def get_serializer_class(self):
+        
+        if self.action == "list":
+            return BookDetailSerializer
+        if self.action == "retrieve":
+            return BookDetailSerializer
+        return BookSerializer
+    
+    
 # class BookAPIView(APIView):
 
 

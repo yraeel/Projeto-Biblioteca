@@ -1,12 +1,19 @@
 from book.models import Book
-from rest_framework import serializers
+from rest_framework.serializers import ModelSerializer, CharField
 
 
-class BookSerializer(serializers.ModelSerializer):
+class BookSerializer(ModelSerializer):
 
-    author_name = serializers.CharField(source='fk_author.author_name', read_only=True)
-    publisher_name = serializers.CharField(source='fk_publisher.publisher_name', read_only=True)
+    class Meta:
+        model = Book
+        fields = "__all__"
 
+
+
+class BookDetailSerializer(ModelSerializer):
+
+    author = CharField(source="fk_author")
+    publisher = CharField(source="fk_publisher")
 
     class Meta:
         model = Book
@@ -17,8 +24,6 @@ class BookSerializer(serializers.ModelSerializer):
                   'language', 
                   'release', 
                   'country', 
-                  'author_name',
-                  'fk_author', 
-                  'publisher_name',
-                  'fk_publisher']
-
+                  'author',
+                  'publisher']
+        # depth = 1
